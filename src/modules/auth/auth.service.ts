@@ -1,6 +1,6 @@
 import { Body, HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { User } from '../../entities/user.entity';
+import { User } from '../profile/entities/user.entity';
 import { Repository } from 'typeorm';
 import { AuthDto } from './dto/auth.dto';
 import { JwtService } from '@nestjs/jwt';
@@ -46,6 +46,7 @@ export class AuthService {
       );
     }
     const isMatch = bcrypt.compareSync(password, user.password); // unhash password
+    console.log('isMatch', isMatch);
     if (!isMatch || user.password) {
       throw new HttpException(
         {
