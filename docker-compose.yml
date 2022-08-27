@@ -10,7 +10,7 @@ services:
     volumes:
       - .:/usr/src/app
       - /usr/src/app/node_modules
-    # Run in dev Mode: npm run start:dev
+    # Run in dev mode: npm run start:dev
     command: npm run start:dev
     ports:
       - ${NODE_LOCAL_PORT}:${NODE_DOCKER_PORT}
@@ -19,7 +19,7 @@ services:
       DB_USER: ${MYSQL_USERNAME}
       DB_PASSWORD: ${MYSQL_PASSWORD}
       DB_NAME: ${MYSQL_DATABASE}
-      DB_PORT: ${MYSQL_PORT}
+      DB_PORT: ${MYSQL_DOCKER_PORT}
       PORT: ${NODE_DOCKER_PORT}
     depends_on:
       - mysql
@@ -34,7 +34,7 @@ services:
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
       MYSQL_DATABASE: ${MYSQL_DATABASE}
     ports:
-      - $MYSQL_LOCAL_PORT:$MYSQL_PORT
+      - $MYSQL_LOCAL_PORT:$MYSQL_DOCKER_PORT
     volumes:
       - db:/var/lib/mysql
 

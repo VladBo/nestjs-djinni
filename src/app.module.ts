@@ -1,6 +1,4 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { AuthModule } from './modules/auth/auth.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -13,11 +11,11 @@ import { ProfileModule } from './modules/profile/profile.module';
       imports: [ConfigModule, AuthModule, ProfileModule],
       useFactory: (configService: ConfigService) => ({
         type: 'mysql',
-        host: configService.get<string>('MYSQL_HOST'),
-        port: configService.get<number>('MYSQL_PORT'),
-        username: configService.get<string>('MYSQL_USERNAME'),
-        password: configService.get<string>('MYSQL_PASSWORD'),
-        database: configService.get<string>('MYSQL_DATABASE'),
+        host: configService.get<string>('DB_HOST'),
+        port: configService.get<number>('DB_PORT'),
+        username: configService.get<string>('DB_USER'),
+        password: configService.get<string>('DB_PASSWORD'),
+        database: configService.get<string>('DB_NAME'),
         migrations: [__dirname + '/migrations/*{.ts,.js}'],
         autoLoadEntities: true,
         logging: true,
@@ -31,7 +29,6 @@ import { ProfileModule } from './modules/profile/profile.module';
     }),
     ConfigModule.forRoot(),
   ],
-  controllers: [AppController],
-  providers: [AppService, GoogleStrategy],
+  providers: [GoogleStrategy],
 })
 export class AppModule {}
